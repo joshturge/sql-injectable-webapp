@@ -11,7 +11,7 @@
 <body>
     <div class="form-group pull-right">
         <form action="search.php">
-            <input type="text" class="search form-control" name="query_product" placeholder="What you looking for?">
+            <input type="text" class="search form-control" name="q" placeholder="What you looking for?">
         </form>
     </div>
     <span class="counter pull-right"></span>
@@ -25,11 +25,11 @@
         </thead>
         <tbody>
             <?php
+                // Parse environment variables
                 $server_name = getenv("SERVER_NAME");
                 $username = getenv("MYSQL_USERNAME");
                 $password = getenv("MYSQL_PASSWORD");
                 $db_name = getenv("DB_NAME");
-                $table = getenv("TABLE_NAME");
 
                 // Create connection
                 $conn = mysqli_connect($server_name, $username, $password, $db_name);
@@ -39,10 +39,11 @@
                     die("Connection Failed: " . mysqli_connect_error());
                 }
 
-                $search_query = $_GET["query_product"];
+                $query = $_GET["q"];
+                $table = "products";
 
                 // SQL injectable code
-                $sql = "SELECT * FROM $table WHERE name LIKE '%$search_query%'";
+                $sql = "SELECT * FROM $table WHERE name LIKE '%$query%'";
 
                 $result = mysqli_query($conn, $sql);
 
