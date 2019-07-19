@@ -22,9 +22,6 @@
                 <th class="col-md-4 col-xs-4">Product Name</th>
                 <th class="col-md-3 col-xs-3">Description</th>
             </tr>
-            <tr class="warning no-result">
-                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
-            </tr>
         </thead>
         <tbody>
             <?php
@@ -53,7 +50,8 @@
                     die("Malformed Query!");
                 }
 
-                if(mysqli_num_rows($result) > 0){ // if one or more rows are returned do following
+                // If one or more rows are returned do following
+                if(mysqli_num_rows($result) > 0){
 			
                     while($row = mysqli_fetch_assoc($result)){
                         echo "<tr>";
@@ -64,6 +62,7 @@
                     }
                     
                 }
+                // Close the db connection
                 mysqli_close($conn);
             ?>
         </tbody>
